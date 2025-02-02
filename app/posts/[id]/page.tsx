@@ -15,15 +15,26 @@ export default async function Post({ params }: { params: { id: string } }) {
 
   return (
     <Layout>
-      <Image
-        src={postData.thumbnail}
-        width={500}
-        height={200}
-        alt={postData.title}
-      />
-      <h1>{postData.title}</h1>
-      <p>{postData.date}</p>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <div className="max-w-2xl mx-auto text-center p-6">
+        {" "}
+        {/* ✅ 中央寄せ & 余白を追加 */}
+        {/* 🆕 画像を幅いっぱいに表示 */}
+        <Image
+          src={postData.thumbnail}
+          width={800} // 画像を大きく
+          height={400}
+          alt={postData.title}
+          className="w-full rounded-lg shadow-lg"
+        />
+        {/* 🆕 記事タイトルを中央寄せ＆大きく */}
+        <h1 className="text-3xl font-bold mt-6">{postData.title}</h1>
+        <p className="text-sm text-gray-400 mt-2">{postData.date}</p>
+        {/* 🆕 記事本文を中央寄せ＆適度な余白を追加 */}
+        <div
+          className="text-left text-gray-300 mt-4 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+        />
+      </div>
     </Layout>
   );
 }
