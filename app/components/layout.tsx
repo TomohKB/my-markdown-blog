@@ -1,6 +1,9 @@
-import Link from "next/link";
+import Link from "next/link"; //next/link を使うことで、ページ遷移が高速になる！
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  //children は、Layout の中に入る「ページごとのコンテンツ」のこと
+  //型 { children: React.ReactNode } → children には「React のコンポーネント」が入る
+  // layoutの中に入るコンテンツはなんでも良くて、childrenの型を指定
   return (
     <div className="min-h-screen flex flex-col">
       {" "}
@@ -12,7 +15,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <nav className="flex items-center">
           {" "}
           {/* ✅ 横並びにする */}
-          <Link href="/" className="text-white text-lg font-bold ml-[100px] hover:text-blue-500 hover:underline">
+          <Link
+            href="/"
+            className="text-white text-lg font-bold ml-[100px] hover:text-blue-500 hover:underline"
+          >
             My Markdown Blog
           </Link>
         </nav>
