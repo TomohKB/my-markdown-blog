@@ -1,19 +1,19 @@
-import { notFound } from "next/navigation"; // ✅ `notFound()` をインポート
+import { notFound } from "next/navigation"; // ✅ 404 ページを表示するための関数
 import Layout from "@/app/components/layout";
 import { getPostData, getSortedPostsData, PostData } from "../../../lib/posts";
 import Image from "next/image";
 
 // ✅ `params.id` が `undefined` にならないように `id: string[]` に統一
-export async function generateStaticParams(): Promise<{ id: string }[]> {
+export async function generateStaticParams() {
   return getSortedPostsData().map((post) => ({
     id: post.id, // ✅ 各記事の id を Next.js に渡す
   }));
 }
 
-// ✅ `params` の型を `{ params: { id: string } }` に修正
-export default async function Post({ params }: { params?: { id?: string } }) {
+// ✅ `params` の型を `{ params: { id: string } }` に統一
+export default async function Post({ params }: { params: { id: string } }) {
   if (!params || !params.id) {
-    // ✅ `notFound()` を使って 404 ページを返す
+    // ✅ `params` がない場合、404 ページを表示
     notFound();
   }
 
