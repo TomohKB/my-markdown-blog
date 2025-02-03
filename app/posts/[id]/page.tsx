@@ -1,14 +1,11 @@
-import { PageProps } from "next"; // ✅ Next.js の `PageProps` 型をインポート
 import Layout from "@/app/components/layout";
 import { getPostData, getSortedPostsData, PostData } from "../../../lib/posts";
 import Image from "next/image";
 
-export async function generateStaticParams(): Promise<
-  { params: { id: string } }[]
-> {
+export async function generateStaticParams(): Promise<{ id: string }[]> {
   // ✅ generateStaticParams() を使えば、最初から id がわかるので、事前にページを作っておける
   return getSortedPostsData().map((post) => ({
-    params: { id: post.id }, // ✅ 各記事の id を params に含める
+    id: post.id, // ✅ 各記事の id を Next.js に渡して、静的ページを作成
   }));
 }
 
@@ -17,8 +14,8 @@ export async function generateStaticParams(): Promise<
 // ✅ Next.js に「この id のページを事前に作っておいて！」と伝える
 // 💡 つまり、「記事ごとに /posts/[id] のページを作る！」
 
-export default async function Post({ params }: PageProps) {
-  if (!params || typeof params.id !== "string") {
+export default async function Post({ params }: { params: { id?: string } }) {
+  if (!params?.id) {
     // ✅ id が undefined の場合、エラーメッセージを表示
     return <p className="text-center text-red-500">記事が見つかりません。</p>;
   }
