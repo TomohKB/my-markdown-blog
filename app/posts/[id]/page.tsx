@@ -13,8 +13,8 @@ export async function generateStaticParams() {
 //✅ Next.js に「この id のページを事前に作っておいて！」と伝える
 //💡 つまり、「記事ごとに /posts/[id] のページを作る！」
 
-export default async function Post({ params }: { params: { id?: string } }) {
-  if (!params?.id) {
+export default async function Post({ params }: { params: { id: string } }) {
+  if (!params || typeof params.id !== "string") {
     //id が undefined の場合、エラーメッセージを表示
     return <p className="text-center text-red-500">記事が見つかりません。</p>;
   }
