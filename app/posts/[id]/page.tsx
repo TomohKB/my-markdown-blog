@@ -3,23 +3,23 @@ import Layout from "@/app/components/layout";
 import { getPostData, getSortedPostsData, PostData } from "../../../lib/posts";
 import Image from "next/image";
 
-// ✅ `generateStaticParams` で id の型を確実に `string` に統一する
-export async function generateStaticParams() {
+// ✅ `generateStaticParams` で id の型を `string` に統一
+export async function generateStaticParams(): Promise<{ id: string }[]> {
   return getSortedPostsData().map((post) => ({
-    id: String(post.id), // ✅ `id` を `string` 型に変換
+    id: post.id.toString(), // ✅ id を string に変換
   }));
 }
 
-// ✅ `params` の型を `{ params: { id: string } }` に統一
-export default async function Post({ params }: { params: { id: string } }) {
-  if (!params || !params.id) {
-    // ✅ `params` が `undefined` の場合、404 ページを表示
+// ✅ `params.id` を `string` 型に変換し、undefined の場合の処理を追加
+export default async function Post({ params }: { params: { id?: string } }) {
+  if (!params?.id) {
+    // ✅ `params.id` が `undefined` の場合、404ページを表示
     notFound();
   }
 
   try {
-    // ✅ `params.id` が `string` 型であることを保証する
-    const postId = String(params.id);
+    // ✅ `params.id` を `string` 型に確実に変換
+    const postId: string = String(params.id);
 
     // ✅ 記事データを取得
     const postData: PostData & { contentHtml: string } =
