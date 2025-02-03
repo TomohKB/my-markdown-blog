@@ -1,8 +1,8 @@
 import fs from "fs"; // ファイル操作をする Node.js の標準ライブラリ
 import path from "path"; // ファイルやフォルダのパスを操作するライブラリ
 import matter from "gray-matter"; // Markdown のメタデータ（フロントマター）を解析
-import { remark } from "remark"; // Markdown を HTML に変換するライブラリ
-import html from "remark-html"; // Markdown を HTML に変換するプラグイン
+// import { remark } from "remark"; // Markdown を HTML に変換するライブラリ
+// import html from "remark-html"; // Markdown を HTML に変換するプラグイン
 
 // 記事データの型を定義
 export interface PostData {
